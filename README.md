@@ -1,2 +1,2 @@
 # Segmentation
-Models of segmentation applied in KITTI road dataset
+Cross fusion implements of segmentation applied in KITTI road dataset.
