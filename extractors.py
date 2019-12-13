@@ -43,7 +43,6 @@ def conv3x3(in_planes, out_planes, stride=1, dilation=1):
 
 
 class BasicBlock(nn.Module):
-
     expansion = 1
 
     def __init__(self, inplanes, planes, stride=1, downsample=None, dilation=1):
@@ -73,7 +72,6 @@ class BasicBlock(nn.Module):
         out = self.relu(out)
 
         return out
-
 
 
 class Bottleneck(nn.Module):
@@ -125,17 +123,15 @@ class ResNet(nn.Module):
         self.conv1 = nn.Conv2d(3, 64, kernel_size=7, stride=2, padding=3, bias=False)
         self.bn1 = nn.BatchNorm2d(64)
 
-        #inplace=True: 对从上层网络Conv2d中传递下来的tensor直接进行修改，这样能够节省运算内存，不用多存储其他变量
+        # inplace=True: 对从上层网络Conv2d中传递下来的tensor直接进行修改，这样能够节省运算内存，不用多存储其他变量
         self.relu = nn.ReLU(inplace=True)
 
         self.maxpool = nn.MaxPool2d(kernel_size=3, stride=2, padding=1)
-
 
         self.layer1 = self._make_layer(block, 64, layers[0])
         self.layer2 = self._make_layer(block, 128, layers[1], stride=2)
         self.layer3 = self._make_layer(block, 256, layers[2], stride=1, dilation=2)
         self.layer4 = self._make_layer(block, 512, layers[3], stride=1, dilation=4)
-
 
         for m in self.modules():
             if isinstance(m, nn.Conv2d):
@@ -195,6 +191,7 @@ class ResNet(nn.Module):
 '''
     Implementation of DenseNet with deep supervision. Downsampling is changed to 8x 
 '''
+
 
 class _DenseLayer(nn.Sequential):
     def __init__(self, num_input_features, growth_rate, bn_size, drop_rate):
@@ -392,6 +389,7 @@ def resnet101(pretrained=True):
     if pretrained:
         load_weights_sequential(model, model_zoo.load_url(model_urls['resnet101']))
     return model
+
 
 def resnet152(pretrained=True):
     model = ResNet(Bottleneck, [3, 8, 36, 3])
